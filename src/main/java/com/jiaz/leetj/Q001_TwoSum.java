@@ -63,6 +63,6 @@ public class Q001_TwoSum {
             a = index[j];
             b = index[i];
         }
-        return new int[] {b,a};
+        return new int[] {a, b};
     }
 }

@@ -12,8 +12,6 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class TestRunner {
-    public static final String UTF8_BOM = "\uFEFF";
-
     public static Stream<ImmutablePair<String, String>> enumerate(String qName) throws Exception {
         // load cases
         InputStream is = TestRunner.class.getResourceAsStream("/CaseData/" + qName + "_Small.txt");
@@ -23,7 +21,7 @@ public class TestRunner {
 
         return Stream.concat(br.lines(), brLarge.lines())
                 .map(x -> x.split("\t"))
-                .map(x -> new ImmutablePair<>(x[0].replace(UTF8_BOM, ""), x[1]));
+                .map(x -> new ImmutablePair<>(x[0], x[1]));
     }
 
     public static String[] tokenizeInput(String s) {
@@ -32,7 +30,8 @@ public class TestRunner {
 
     public static int[] toIntArray(String input) {
         return ArrayUtils.toPrimitive(Arrays.stream(input.substring(1, input.length() - 1).split(","))
-                .map(Integer::valueOf).toArray(Integer[]::new));
+                .map(Integer::valueOf)
+                .toArray(Integer[]::new));
     }
 
     public static int toInt(String input) {
