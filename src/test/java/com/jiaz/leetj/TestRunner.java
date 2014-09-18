@@ -34,8 +34,32 @@ public class TestRunner {
                 .toArray(Integer[]::new));
     }
 
+    public static ListNode toList(String input) {
+        ListNode placeHolder = new ListNode(0);
+        System.out.println(input);
+        Arrays.stream(input.substring(1, input.length() - 1).split(","))
+            .map(Integer::valueOf)
+            .map(x -> new ListNode(x))
+            .reduce(placeHolder, (x, y) -> x.next = y);
+        return placeHolder.next;
+    }
+
     public static int toInt(String input) {
         return Integer.valueOf(input);
+    }
+
+    public static String serialize(ListNode list) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        boolean first = true;
+        while(list != null) {
+            if (!first) sb.append(",");
+            first = false;
+            sb.append(list.val);
+            list = list.next;
+        }
+        sb.append("}");
+        return sb.toString();
     }
 
     public static String serialize(int[] arr) {
