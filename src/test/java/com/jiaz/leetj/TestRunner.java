@@ -28,15 +28,20 @@ public class TestRunner {
         return s.split(", ");
     }
 
+    private static String trimSides(String s) {
+        if (s.length() < 2) return s;
+        return s.substring(1, s.length() - 1);
+    }
+
     public static int[] toIntArray(String input) {
-        return ArrayUtils.toPrimitive(Arrays.stream(input.substring(1, input.length() - 1).split(","))
+        return ArrayUtils.toPrimitive(Arrays.stream(trimSides(input).split(","))
                 .map(Integer::valueOf)
                 .toArray(Integer[]::new));
     }
 
     public static ListNode toList(String input) {
         ListNode placeHolder = new ListNode(0);
-        Arrays.stream(input.substring(1, input.length() - 1).split(","))
+        Arrays.stream(trimSides(input).split(","))
             .map(Integer::valueOf)
             .map(x -> new ListNode(x))
             .reduce(placeHolder, (x, y) -> x.next = y);
@@ -45,6 +50,10 @@ public class TestRunner {
 
     public static int toInt(String input) {
         return Integer.valueOf(input);
+    }
+
+    public static String toStr(String input) {
+        return trimSides(input);
     }
 
     public static String serialize(ListNode list) {
@@ -59,6 +68,10 @@ public class TestRunner {
         }
         sb.append("}");
         return sb.toString();
+    }
+
+    public static String serialize(int i) {
+        return String.valueOf(i);
     }
 
     public static String serialize(int[] arr) {
