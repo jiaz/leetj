@@ -34,6 +34,8 @@ public class TestRunner {
     }
 
     public static int[] toIntArray(String input) {
+        if (input.equals("[]")) return new int[0];
+
         return ArrayUtils.toPrimitive(Arrays.stream(trimSides(input).split(","))
                 .map(Integer::valueOf)
                 .toArray(Integer[]::new));
@@ -74,6 +76,14 @@ public class TestRunner {
         return String.valueOf(i);
     }
 
+    public static String serialize(double d) {
+        return String.format("%.5f", d);
+    }
+
+    public static String serialize(String s) {
+        return "\"" + s + "\"";
+    }
+
     public static String serialize(int[] arr) {
         if (arr == null) return null;
         StringBuilder sb = new StringBuilder();
@@ -86,11 +96,12 @@ public class TestRunner {
 
     public static void judge(String qName, Function<String, String> solution) throws Exception {
         enumerate(qName)
-                .parallel()
+                //.parallel()
                 .forEach(pair -> {
+                    System.out.println("Running case: " + pair.left);
                     String result = solution.apply(pair.left);
                     if (pair.getRight().equals(result)) {
-                        System.out.println("Case passed: " + pair.left);
+                        System.out.println("[Passed]");
                     } else {
                         Assert.assertEquals("Case failed: " + pair.left, pair.getRight(), result);
                     }
