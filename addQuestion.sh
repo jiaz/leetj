@@ -16,6 +16,6 @@ popd
 
 pushd src/test/java/com/jiaz/leetj/
 sed -i.bak "s/<QUESTION>/$question/g" ${question}Test.java
-rm ${question}.java.bak
+rm ${question}Test.java.bak
 popd
 
