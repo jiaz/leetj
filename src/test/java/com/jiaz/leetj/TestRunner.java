@@ -80,6 +80,10 @@ public class TestRunner {
         return String.format("%.5f", d);
     }
 
+    public static String serialize(boolean b) {
+        return b ? "true" : "false";
+    }
+
     public static String serialize(String s) {
         return "\"" + s + "\"";
     }
