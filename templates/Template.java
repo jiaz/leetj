@@ -1,8 +1,8 @@
 package com.jiaz.leetj;
 
-public class <QUESTION> {
-	
-	public void method() {
+public class ${questionName} {
+    
+    public void method() {
         
     }
 

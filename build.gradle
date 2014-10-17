@@ -2,6 +2,8 @@ apply plugin: 'java'
 
 version = '1.0'
 
+compileJava.options.encoding = 'UTF-8'
+
 repositories {
     mavenCentral()
 }
@@ -9,4 +11,48 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     testCompile group: 'org.apache.commons', name: 'commons-lang3', version: '3.3.2'
+}
+
+tasks.withType(Test) {
+    maxParallelForks = 1 // Runtime.runtime.availableProcessors()
+}
+
+tasks.addRule("Pattern: qtest<QId>") { String taskName ->
+	if (taskName.startsWith("qtest")) {
+		task(taskName, type: Test, dependsOn: testClasses) {
+			include "**/" + (taskName - 'qtest') + "*"
+		}
+	}
+}
+
+tasks.addRule("Pattern: qcreate<QId>") { String taskName ->
+	if (taskName.startsWith("qcreate")) {
+		task(taskName) << {
+			def questionName = taskName - 'qcreate'
+			def testClassName = questionName + 'Test'
+			println "Creating question: " + questionName
+
+			copy {
+				from 'templates'
+				into 'src/main/java/com/jiaz/leetj'
+				expand([questionName: questionName])
+				rename '(.*).java', questionName + ".java"
+				include 'Template.java'
+			}
+
+			copy {
+				from 'templates'
+				into 'src/test/java/com/jiaz/leetj'
+				expand([questionName: questionName])
+				rename '(.*).java', testClassName + ".java"
+				include 'TemplateTest.java'
+			}
+		}
+	}
+}
+
+tasks.withType(Test) {
+	testLogging {
+		events 'passed'
+	}
 }

@@ -100,12 +100,12 @@ public class TestRunner {
 
     public static void judge(String qName, Function<String, String> solution) throws Exception {
         enumerate(qName)
-                //.parallel()
+                .parallel()
                 .forEach(pair -> {
-                    System.out.println("Running case: " + pair.left);
+                    //System.out.println("Running case: " + pair.left);
                     String result = solution.apply(pair.left);
                     if (pair.getRight().equals(result)) {
-                        System.out.println("[Passed]");
+                        //System.out.println("[Passed]");
                     } else {
                         Assert.assertEquals("Case failed: " + pair.left, pair.getRight(), result);
                     }

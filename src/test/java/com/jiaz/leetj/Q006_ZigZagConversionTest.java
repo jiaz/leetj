@@ -6,7 +6,7 @@ public class Q006_ZigZagConversionTest extends AbstractTest<Q006_ZigZagConversio
 
     @Override
     protected String solveProblem(String input, Q006_ZigZagConversion solver) {
-    	String[] inputs = tokenizeInput(input);
+        String[] inputs = tokenizeInput(input);
         return serialize(solver.convert(toStr(inputs[0]), toInt(inputs[1])));
     }
 
