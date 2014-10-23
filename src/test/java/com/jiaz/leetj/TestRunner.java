@@ -7,9 +7,9 @@ import org.junit.Assert;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.function.Function;
-import java.util.stream.Stream;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
 
 public class TestRunner {
     public static Stream<ImmutablePair<String, String>> enumerate(String qName) throws Exception {
@@ -29,8 +29,27 @@ public class TestRunner {
     }
 
     private static String trimSides(String s) {
-        if (s.length() < 2) return s;
-        return s.substring(1, s.length() - 1);
+        int begin = 0;
+        int end = s.length();
+        char c = s.charAt(0);
+        switch (c) {
+            case '[':
+            case '(':
+            case '{':
+            case '\"':
+                begin = 1;
+                break;
+        }
+        c = s.charAt(s.length() - 1);
+        switch (c) {
+            case ']':
+            case ')':
+            case '}':
+            case '\"':
+                end = s.length() - 1;
+                break;
+        }
+        return s.substring(begin, end);
     }
 
     public static int[] toIntArray(String input) {
@@ -41,7 +60,28 @@ public class TestRunner {
                 .toArray(Integer[]::new));
     }
 
+    public static int[][] toArrayOfIntArray(String input) {
+        if (input.equals("[]")) return new int[0][];
+        input = trimSides(input);
+        String[] arrays = input.split("\\],\\[");
+        int[][] res = new int[arrays.length][];
+        for (int i = 0; i < arrays.length; ++i) {
+            res[i] = toIntArray(arrays[i]);
+        }
+        return res;
+    }
+
+    public static String[] toStrArray(String input) {
+        if (input.equals("[]")) return new String[0];
+
+        return Arrays.stream(trimSides(input).split(","))
+                .map(x -> toStr(x))
+                .toArray(String[]::new);
+    }
+
     public static ListNode toList(String input) {
+        if (input.equals("{}")) return null;
+
         ListNode placeHolder = new ListNode(0);
         Arrays.stream(trimSides(input).split(","))
             .map(Integer::valueOf)
@@ -58,6 +98,40 @@ public class TestRunner {
         return trimSides(input);
     }
 
+    public static TreeNode toTreeNode(String input) {
+        if (input == null || input.equals("{}")) return null;
+
+        input = trimSides(input);
+        String[] tokens = input.split(",");
+        TreeNode root = tokens[0].equals("#") ? null : new TreeNode(Integer.valueOf(tokens[0]));
+        if (root == null) return root;
+
+        int pos = 1;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        while (pos < tokens.length) {
+            TreeNode n = q.remove();
+            String subs = tokens[pos];
+            if (subs.equals("#")) {
+                n.left = null;
+            } else {
+                n.left = new TreeNode(Integer.valueOf(subs));
+                q.add(n.left);
+            }
+            pos++;
+            if (pos >= tokens.length) break;
+            subs = tokens[pos];
+            if (subs.equals("#")) {
+                n.right = null;
+            } else {
+                n.right = new TreeNode(Integer.valueOf(subs));
+                q.add(n.right);
+            }
+            pos++;
+        }
+        return root;
+    }
+
     public static String serialize(ListNode list) {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
@@ -69,6 +143,78 @@ public class TestRunner {
             list = list.next;
         }
         sb.append("}");
+        return sb.toString();
+    }
+
+    public static String serializeListOfListInt(List<List<Integer>> list) {
+        StringBuilder sb = new StringBuilder();
+        sb.append('[');
+        boolean first = true;
+        for (List<Integer> x : list) {
+            if (!first) {
+                sb.append(",");
+            } else {
+                first = false;
+            }
+            sb.append(serializeList(x, IntegerSerializer.getInstance()));
+        }
+        sb.append(']');
+        return sb.toString();
+    }
+
+    public static interface Serializer<T> {
+        public String serialize(T obj);
+    }
+
+    public static class StringSerializer implements Serializer<String> {
+        private static final StringSerializer _instance = new StringSerializer();
+
+        public static Serializer<String> getInstance() {
+            return _instance;
+        }
+
+        public String serialize(String obj) {
+            return TestRunner.serialize(obj);
+        }
+    }
+
+    public static class StringArraySerializer implements Serializer<String[]> {
+        private static final StringArraySerializer _instance = new StringArraySerializer();
+
+        public static Serializer<String[]> getInstance() {
+            return _instance;
+        }
+
+        public String serialize(String[] obj) {
+            return TestRunner.serialize(obj);
+        }
+    }
+
+    public static class IntegerSerializer implements Serializer<Integer> {
+        private static final IntegerSerializer _instance = new IntegerSerializer();
+
+        public static Serializer<Integer> getInstance() {
+            return _instance;
+        }
+
+        public String serialize(Integer obj) {
+            return TestRunner.serialize(obj);
+        }
+    }
+
+    public static <T> String serializeList(List<T> list, Serializer<T> serializer) {
+        StringBuilder sb = new StringBuilder();
+        sb.append('[');
+        boolean first = true;
+        for (T x : list) {
+            if (!first) {
+                sb.append(",");
+            } else {
+                first = false;
+            }
+            sb.append(serializer.serialize(x));
+        }
+        sb.append(']');
         return sb.toString();
     }
 
@@ -88,7 +234,40 @@ public class TestRunner {
         return "\"" + s + "\"";
     }
 
-    public static String serialize(int[] arr) {
+    public static String serialize(TreeNode root) {
+        if (root == null) return "{}";
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        Queue<TreeNode> queue = new LinkedList<>();
+        TreeNode nullNode = new TreeNode(0);
+        queue.add(root);
+        int noneNullCount = 1;
+        while(noneNullCount > 0) {
+            TreeNode n = queue.remove();
+            if (n != nullNode) {
+                noneNullCount--;
+                sb.append(n.val + ",");
+                if (n.left != null) {
+                    queue.add(n.left);
+                    noneNullCount++;
+                } else {
+                    queue.add(nullNode);
+                }
+                if (n.right != null) {
+                    queue.add(n.right);
+                    noneNullCount++;
+                } else {
+                    queue.add(nullNode);
+                }
+            } else {
+                sb.append("#,");
+            }
+        }
+        return sb.substring(0, sb.length() - 1) + "}";
+    }
+
+    public static String serializeInformal(int[] arr) {
         if (arr == null) return null;
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < arr.length; ++i) {
@@ -98,16 +277,43 @@ public class TestRunner {
         return sb.toString();
     }
 
+    public static String serialize(int[] arr) {
+        if (arr == null) return "[]";
+        StringBuilder sb = new StringBuilder();
+        sb.append('[');
+        for (int i = 0; i < arr.length; ++i) {
+            if (i > 0) sb.append(",");
+            sb.append(arr[i]);
+        }
+        sb.append(']');
+        return sb.toString();
+    }
+
+    public static String serialize(String[] arr) {
+        if (arr == null) return "[]";
+        StringBuilder sb = new StringBuilder();
+        sb.append('[');
+        for (int i = 0; i < arr.length; ++i) {
+            if (i > 0) sb.append(",");
+            sb.append(serialize(arr[i]));
+        }
+        sb.append(']');
+        return sb.toString();
+    }
+
     public static void judge(String qName, Function<String, String> solution) throws Exception {
         enumerate(qName)
-                .parallel()
+                //.parallel()
                 .forEach(pair -> {
-                    //System.out.println("Running case: " + pair.left);
+                    System.out.println("Running case: " + pair.left);
+                    long startTimeMs = System.currentTimeMillis();
                     String result = solution.apply(pair.left);
+                    long endTimeMs = System.currentTimeMillis();
                     if (pair.getRight().equals(result)) {
-                        //System.out.println("[Passed]");
+                        System.out.println("[Passed] " + (endTimeMs - startTimeMs) + "ms");
                     } else {
                         Assert.assertEquals("Case failed: " + pair.left, pair.getRight(), result);
+                        //System.out.println("[Passed] " + (endTimeMs - startTimeMs) + "ms");
                     }
                 });
     }
