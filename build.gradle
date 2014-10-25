@@ -17,18 +17,18 @@ tasks.withType(Test) {
     maxParallelForks = 1 // Runtime.runtime.availableProcessors()
 }
 
-tasks.addRule("Pattern: qtest<QId>") { String taskName ->
-	if (taskName.startsWith("qtest")) {
+tasks.addRule("Pattern: qt<QId>") { String taskName ->
+	if (taskName.startsWith("qt")) {
 		task(taskName, type: Test, dependsOn: testClasses) {
-			include "**/" + (taskName - 'qtest') + "*"
+			include "**/Q" + (taskName - 'qt') + "*"
 		}
 	}
 }
 
-tasks.addRule("Pattern: qcreate<QId>") { String taskName ->
-	if (taskName.startsWith("qcreate")) {
+tasks.addRule("Pattern: qc<QId>") { String taskName ->
+	if (taskName.startsWith("qc")) {
 		task(taskName) << {
-			def questionName = taskName - 'qcreate'
+			def questionName = taskName - 'qc'
 			def testClassName = questionName + 'Test'
 			println "Creating question: " + questionName
 

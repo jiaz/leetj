@@ -20,6 +20,7 @@ public class TestRunner {
         BufferedReader brLarge = new BufferedReader(new InputStreamReader(isLarge, "UTF8"));
 
         return Stream.concat(br.lines(), brLarge.lines())
+                //.parallel()
                 .map(x -> x.split("\t"))
                 .map(x -> new ImmutablePair<>(x[0], x[1]));
     }
@@ -29,6 +30,11 @@ public class TestRunner {
     }
 
     private static String trimSides(String s) {
+        if (s.length() == 0) return "";
+        if (s.length() == 1) {
+            if (s.equals("\"")) return "";
+            else return s;
+        }
         int begin = 0;
         int end = s.length();
         char c = s.charAt(0);
@@ -74,7 +80,7 @@ public class TestRunner {
     public static String[] toStrArray(String input) {
         if (input.equals("[]")) return new String[0];
 
-        return Arrays.stream(trimSides(input).split(","))
+        return Arrays.stream(trimSides(input).split("\",\""))
                 .map(x -> toStr(x))
                 .toArray(String[]::new);
     }
@@ -88,6 +94,21 @@ public class TestRunner {
             .map(x -> new ListNode(x))
             .reduce(placeHolder, (x, y) -> x.next = y);
         return placeHolder.next;
+    }
+
+    public static Interval toInterval(String input) {
+        int[] interval = toIntArray(input);
+        Interval in = new Interval(interval[0], interval[1]);
+        return in;
+    }
+
+    public static List<Interval> toIntervalList(String input) {
+        int[][] intervals = toArrayOfIntArray(input);
+        List<Interval> ins = new ArrayList<>();
+        for (int i = 0; i < intervals.length; ++i) {
+            ins.add(new Interval(intervals[i][0], intervals[i][1]));
+        }
+        return ins;
     }
 
     public static int toInt(String input) {
@@ -202,6 +223,18 @@ public class TestRunner {
         }
     }
 
+    public static class IntervalSerializer implements Serializer<Interval> {
+        private static final IntervalSerializer _instance = new IntervalSerializer();
+
+        public static Serializer<Interval> getInstance() {
+            return _instance;
+        }
+
+        public String serialize(Interval obj) {
+            return TestRunner.serialize(obj);
+        }
+    }
+
     public static <T> String serializeList(List<T> list, Serializer<T> serializer) {
         StringBuilder sb = new StringBuilder();
         sb.append('[');
@@ -216,6 +249,12 @@ public class TestRunner {
         }
         sb.append(']');
         return sb.toString();
+    }
+
+    public static String serialize(Interval in) {
+        if (in == null) return "[]";
+
+        return "[" + in.start + "," + in.end + "]";
     }
 
     public static String serialize(int i) {

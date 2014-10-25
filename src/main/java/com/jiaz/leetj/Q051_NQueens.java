@@ -24,58 +24,57 @@ import java.util.*;
 
 public class Q051_NQueens {
 
-    private void recSolve(Boolean[] rows, Boolean[] cols, Boolean[] ldiag, Boolean[] rdiag,
-        int pos, Stack<Integer> marked, List<String[]> res) {
-        int n = rows.length;
+    private List<String[]> result;
+    private Boolean[] rows;
+    private Boolean[] cols;
+    private Boolean[] ldiag;
+    private Boolean[] rdiag;
+
+    private void recSolve(Stack<Integer> marked, List<String[]> res, int n) {
         if (marked.size() == n) {
             // construct result
             String[] oneRes = new String[n];
-            int k = 0;
             for (int i = 0; i < n; ++i) {
                 StringBuilder sb = new StringBuilder();
                 for (int j = 0; j < n; ++j) {
-                    if (k < n && i * n + j == marked.get(k)) {
-                        sb.append('Q');
-                        k++;
+                    if (j == marked.get(i)) {
+                        sb.append("Q");
                     } else {
-                        sb.append('.');
+                        sb.append(".");
                     }
                 }
                 oneRes[i] = sb.toString();
             }
             res.add(oneRes);
         } else {
-            for (int i = pos; i < n * n; ++i) {
-                int row = i / n;
-                int col = i % n;
+            for (int i = 0; i < n; ++i) {
+                int row = marked.size();
+                int col = i;
                 int ld = row - col + n - 1;
                 int rd = row + col;
 
                 if (!rows[row] && !cols[col] && !ldiag[ld] && !rdiag[rd]) {
-                    rows[row] = true;
-                    cols[col] = true;
-                    ldiag[ld] = true;
-                    rdiag[rd] = true;
+                    rows[row] = true; cols[col] = true;
+                    ldiag[ld] = true; rdiag[rd] = true;
                     marked.push(i);
 
-                    recSolve(rows, cols, ldiag, rdiag, i + 1, marked, res);
+                    recSolve(marked, res, n);
                     
                     marked.pop();
-                    rows[row] = false;
-                    cols[col] = false;
-                    ldiag[ld] = false;
-                    rdiag[rd] = false;
+                    rows[row] = false; cols[col] = false;
+                    ldiag[ld] = false; rdiag[rd] = false;
                 }
             }
         }
     }
     
     public List<String[]> solveNQueens(int n) {
-        List<String[]> result = new ArrayList<>();
-        Boolean[] rows = new Boolean[n];
-        Boolean[] cols = new Boolean[n];
-        Boolean[] ldiag = new Boolean[2 * n - 1];
-        Boolean[] rdiag = new Boolean[2 * n - 1];
+        result = new ArrayList<>();
+        rows = new Boolean[n];
+        cols = new Boolean[n];
+        ldiag = new Boolean[2 * n - 1];
+        rdiag = new Boolean[2 * n - 1];
+
         Stack<Integer> marked = new Stack<>();
 
         for (int i = 0; i < n; ++i) {
@@ -87,7 +86,7 @@ public class Q051_NQueens {
             rdiag[i] = false;
         }
 
-        recSolve(rows, cols, ldiag, rdiag, 0, marked, result);
+        recSolve(marked, result, n);
 
         return result;
     }

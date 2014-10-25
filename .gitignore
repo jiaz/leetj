@@ -13,3 +13,6 @@ build/
 # Maven
 log/
 target/
+
+# CTags
+.tag*
