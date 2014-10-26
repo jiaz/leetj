@@ -30,6 +30,7 @@ public class TestRunner {
     }
 
     private static String trimSides(String s) {
+        System.out.println("Trim: " + s);
         if (s.length() == 0) return "";
         if (s.length() == 1) {
             if (s.equals("\"")) return "";
@@ -77,12 +78,30 @@ public class TestRunner {
         return res;
     }
 
+    public static List<List<Integer>> toListOfListOfInt(String input) {
+        int[][] arr = toArrayOfIntArray(input);
+        List<List<Integer>> list = new ArrayList<>();
+        for (int[] row : arr) {
+            list.add(IntStream.of(row).boxed().collect(Collectors.toList()));
+        }
+        return list;
+    }
+
     public static String[] toStrArray(String input) {
         if (input.equals("[]")) return new String[0];
 
         return Arrays.stream(trimSides(input).split("\",\""))
                 .map(x -> toStr(x))
                 .toArray(String[]::new);
+    }
+
+    public static char[][] toCharMap(String input) {
+        String[] str = toStrArray(input);
+        char[][] result = new char[str.length][];
+        for (int i = 0; i < str.length; ++i) {
+            result[i] = str[i].toCharArray();
+        }
+        return result;
     }
 
     public static ListNode toList(String input) {
@@ -270,6 +289,7 @@ public class TestRunner {
     }
 
     public static String serialize(String s) {
+        if (s == null) return "null";
         return "\"" + s + "\"";
     }
 
@@ -352,7 +372,7 @@ public class TestRunner {
                         System.out.println("[Passed] " + (endTimeMs - startTimeMs) + "ms");
                     } else {
                         Assert.assertEquals("Case failed: " + pair.left, pair.getRight(), result);
-                        //System.out.println("[Passed] " + (endTimeMs - startTimeMs) + "ms");
+                        //System.out.println("[Failed] " + (endTimeMs - startTimeMs) + "ms");
                     }
                 });
     }

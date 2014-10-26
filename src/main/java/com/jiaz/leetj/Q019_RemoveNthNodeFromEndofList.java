@@ -10,8 +10,8 @@ package com.jiaz.leetj;
 // Try to do this in one pass.
 
 public class Q019_RemoveNthNodeFromEndofList {
-    
-    public ListNode removeNthFromEnd(ListNode head, int n) {
+
+    private ListNode removeByAssign(ListNode head, int n) {
         if (n == 1) {
             // remove last node
             if (head.next == null) {
@@ -40,6 +40,35 @@ public class Q019_RemoveNthNodeFromEndofList {
             curr.next = curr.next.next;
         }
         return head;
+    }
+
+    private ListNode removeByDelete(ListNode head, int n) {
+        ListNode guard = head;
+        for (int i = 0; i < n; ++i) {
+            guard = guard.next;
+        }
+        if (guard == null) {
+            // the nth node is head
+            ListNode result = head.next;
+            head.next = null;
+            return result;
+        } else {
+            ListNode target = head;
+            // move target and guard ahead until guard.next = null
+            while (guard.next != null) {
+                guard = guard.next;
+                target = target.next;
+            }
+            // remove target's next node
+            ListNode removeNode = target.next;
+            target.next = removeNode.next;
+            removeNode.next = null;
+            return head;
+        }
+    }
+
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        return removeByDelete(head, n);
     }
 
 }

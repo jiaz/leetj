@@ -1,7 +1,7 @@
 package com.jiaz.leetj;
 
 import org.junit.Test;
-
+import org.junit.Assert;
 import java.lang.reflect.ParameterizedType;
 
 import static com.jiaz.leetj.TestRunner.judge;
@@ -32,8 +32,14 @@ public abstract class AbstractTest<T> {
 
     @Test
     public void runCase() throws Exception {
-        T solver = createSolver();
         String problemSetName = solverType.getSimpleName().split("_")[0];
-        judge(problemSetName, input -> solveProblem(input, solver));
+        judge(problemSetName, (input) -> {
+            try {
+                T solver = this.createSolver();
+                return solveProblem(input, solver);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
     }
 }
