@@ -12,6 +12,18 @@ import java.util.function.*;
 import java.util.stream.*;
 
 public class TestRunner {
+
+    public static final boolean isParallel;
+
+    static {
+        String isParallelSetting = System.getProperty("IsParallel");
+        if (isParallelSetting.equals("true")) {
+            isParallel = true;
+        } else {
+            isParallel = false;
+        }
+    }
+
     public static Stream<ImmutablePair<String, String>> enumerate(String qName) throws Exception {
         // load cases
         InputStream is = TestRunner.class.getResourceAsStream("/CaseData/" + qName + "_Small.txt");
@@ -19,10 +31,12 @@ public class TestRunner {
         InputStream isLarge = TestRunner.class.getResourceAsStream("/CaseData/" + qName + "_Large.txt");
         BufferedReader brLarge = new BufferedReader(new InputStreamReader(isLarge, "UTF8"));
 
-        return Stream.concat(br.lines(), brLarge.lines())
-                //.parallel()
-                .map(x -> x.split("\t"))
-                .map(x -> new ImmutablePair<>(x[0], x[1]));
+        Stream<String> lines = Stream.concat(br.lines(), brLarge.lines());
+        if (isParallel) {
+            lines = lines.parallel();
+        }
+        return lines.map(x -> x.split("\t"))
+                    .map(x -> new ImmutablePair<>(x[0], x[1]));
     }
 
     public static String[] tokenizeInput(String s) {
@@ -30,7 +44,6 @@ public class TestRunner {
     }
 
     private static String trimSides(String s) {
-        System.out.println("Trim: " + s);
         if (s.length() == 0) return "";
 
         int begin = 0;
@@ -369,19 +382,25 @@ public class TestRunner {
     }
 
     public static void judge(String qName, Function<String, String> solution) throws Exception {
-        enumerate(qName)
-                //.parallel()
-                .forEach(pair -> {
-                    System.out.println("Running case: " + pair.left);
-                    long startTimeMs = System.currentTimeMillis();
-                    String result = solution.apply(pair.left);
-                    long endTimeMs = System.currentTimeMillis();
-                    if (pair.getRight().equals(result)) {
-                        System.out.println("[Passed] " + (endTimeMs - startTimeMs) + "ms");
-                    } else {
-                        Assert.assertEquals("Case failed: " + pair.left, pair.getRight(), result);
-                        //System.out.println("[Failed] " + (endTimeMs - startTimeMs) + "ms");
-                    }
-                });
+        Stream<ImmutablePair<String, String>> testCases = enumerate(qName);
+        if (isParallel) {
+            testCases = testCases.parallel();
+        }
+        testCases.forEach(pair -> {
+            if (!isParallel) {
+                System.out.println("Running case: " + pair.left);
+            }
+            long startTimeMs = System.currentTimeMillis();
+            String result = solution.apply(pair.left);
+            long endTimeMs = System.currentTimeMillis();
+            if (pair.getRight().equals(result)) {
+                if (!isParallel) {
+                    System.out.println("[Passed] " + (endTimeMs - startTimeMs) + "ms");
+                }
+            } else {
+                Assert.assertEquals("Case failed: " + pair.left, pair.getRight(), result);
+                //System.out.println("[Failed] " + (endTimeMs - startTimeMs) + "ms");
+            }
+        });
     }
 }
