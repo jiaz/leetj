@@ -32,10 +32,7 @@ public class TestRunner {
     private static String trimSides(String s) {
         System.out.println("Trim: " + s);
         if (s.length() == 0) return "";
-        if (s.length() == 1) {
-            if (s.equals("\"")) return "";
-            else return s;
-        }
+
         int begin = 0;
         int end = s.length();
         char c = s.charAt(0);
@@ -56,6 +53,7 @@ public class TestRunner {
                 end = s.length() - 1;
                 break;
         }
+        if (begin >= end) return "";
         return s.substring(begin, end);
     }
 
@@ -105,14 +103,24 @@ public class TestRunner {
     }
 
     public static ListNode toList(String input) {
-        if (input.equals("{}")) return null;
+        input = trimSides(input);
+        if (input.equals("")) return null;
 
         ListNode placeHolder = new ListNode(0);
-        Arrays.stream(trimSides(input).split(","))
+        Arrays.stream(input.split(","))
             .map(Integer::valueOf)
             .map(x -> new ListNode(x))
             .reduce(placeHolder, (x, y) -> x.next = y);
         return placeHolder.next;
+    }
+
+    public static List<ListNode> toListOfListNode(String input) {
+        List<ListNode> result = new ArrayList<>();
+        if (input.equals("[]")) return result;
+
+        return Arrays.stream(trimSides(input).split("\\},\\{"))
+            .map(x -> toList(x))
+            .collect(Collectors.toList());
     }
 
     public static Interval toInterval(String input) {
