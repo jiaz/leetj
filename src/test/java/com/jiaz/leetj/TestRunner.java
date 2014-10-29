@@ -369,6 +369,21 @@ public class TestRunner {
         return sb.toString();
     }
 
+    public static String serialize(int[][] arr) {
+        if (arr == null) return "null";
+        if (arr.length == 0) return "[]";
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        boolean first = true;
+        for (int i = 0; i < arr.length; ++i) {
+            if (!first) sb.append(",");
+            first = false;
+            sb.append(serialize(arr[i]));
+        }
+        sb.append("]");
+        return sb.toString();
+    }
+
     public static String serialize(String[] arr) {
         if (arr == null) return "[]";
         StringBuilder sb = new StringBuilder();
