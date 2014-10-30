@@ -34,7 +34,6 @@ public class Q085_MaximalRectangle {
                         while (k < matrix.length && matrix[k][j] == '1') k++;
                         for (int l = i; l < k; ++l) {
                             histmap[l][j] = k - l;
-                            System.out.println(histmap[l][j]);
                         }
                     }
                 }

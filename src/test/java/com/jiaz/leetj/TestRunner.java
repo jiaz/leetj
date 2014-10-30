@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class TestRunner {
 
@@ -87,6 +88,20 @@ public class TestRunner {
             res[i] = toIntArray(arrays[i]);
         }
         return res;
+    }
+
+    public static List<List<String>> toListOfListOfString(String input) {
+        List<List<String>> result = new ArrayList<>();
+        if (input.equals("[]")) return result;
+        input = trimSides(input);
+        String[] arrays = input.split("\\],\\[");
+        for (String s : arrays) {
+            String[] sa = toStrArray(s);
+            List<String> r = new ArrayList<>();
+            for (String ss : sa) r.add(ss);
+            result.add(r);
+        }
+        return result;
     }
 
     public static List<List<Integer>> toListOfListOfInt(String input) {
@@ -251,6 +266,18 @@ public class TestRunner {
         }
     }
 
+    public static class StringListSerializer implements Serializer<List<String>> {
+        private static final StringListSerializer _instance = new StringListSerializer();
+
+        public static Serializer<List<String>> getInstance() {
+            return _instance;
+        }
+
+        public String serialize(List<String> obj) {
+            return TestRunner.serializeList(obj, StringSerializer.getInstance());
+        }
+    }
+
     public static class IntegerSerializer implements Serializer<Integer> {
         private static final IntegerSerializer _instance = new IntegerSerializer();
 
@@ -396,26 +423,44 @@ public class TestRunner {
         return sb.toString();
     }
 
-    public static void judge(String qName, Function<String, String> solution) throws Exception {
+    public static void runCases(String qName, Function<ImmutablePair<String, String>, Boolean> runner)
+        throws Exception {
         Stream<ImmutablePair<String, String>> testCases = enumerate(qName);
         if (isParallel) {
             testCases = testCases.parallel();
         }
+        AtomicInteger failureCount = new AtomicInteger(0);
         testCases.forEach(pair -> {
             if (!isParallel) {
                 System.out.println("Running case: " + pair.left);
             }
             long startTimeMs = System.currentTimeMillis();
-            String result = solution.apply(pair.left);
+            Boolean passed = runner.apply(pair);
             long endTimeMs = System.currentTimeMillis();
-            if (pair.getRight().equals(result)) {
+            if (passed) {
                 if (!isParallel) {
                     System.out.println("[Passed] " + (endTimeMs - startTimeMs) + "ms");
                 }
             } else {
-                Assert.assertEquals("Case failed: " + pair.left, pair.getRight(), result);
-                //System.out.println("[Failed] " + (endTimeMs - startTimeMs) + "ms");
+                System.out.println("[Failed] " + pair.getLeft() + (endTimeMs - startTimeMs) + "ms");
+                failureCount.incrementAndGet();
             }
+        });
+        Assert.assertTrue("Number of case failed: " + failureCount.get(), 0 == failureCount.get());
+    }
+
+    public static void judge(String qName, Function<String, String> solution) throws Exception {
+        runCases(qName, pair -> {
+            String result = solution.apply(pair.left);
+            return pair.getRight().equals(result);
+        });
+    }
+
+    public static <TResult> void judge(String qName, Function<String, TResult> solution,
+        BiFunction<TResult, String, Boolean> verifier) throws Exception {
+        runCases(qName, pair -> {
+            TResult result = solution.apply(pair.left);
+            return verifier.apply(result, pair.right);
         });
     }
 }
