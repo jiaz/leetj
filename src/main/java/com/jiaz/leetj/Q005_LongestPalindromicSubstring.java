@@ -1,14 +1,12 @@
 package com.jiaz.leetj;
 
-// Given a string S, find the longest palindromic substring in S. 
-// You may assume that the maximum length of S is 1000, 
+// Given a string S, find the longest palindromic substring in S.
+// You may assume that the maximum length of S is 1000,
 // and there exists one unique longest palindromic substring.
 
 public class Q005_LongestPalindromicSubstring {
     public String longestPalindrome(String s) {
         if (s.length() <= 1) return s;
-
-        System.out.println(s.length());
 
         StringBuilder sb = new StringBuilder();
         sb.append('a');

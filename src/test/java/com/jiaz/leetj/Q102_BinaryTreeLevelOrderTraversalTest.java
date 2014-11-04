@@ -7,8 +7,7 @@ public class Q102_BinaryTreeLevelOrderTraversalTest extends AbstractTest<Q102_Bi
 
     @Override
     protected String solveProblem(String input, Q102_BinaryTreeLevelOrderTraversal solver) {
-        //List<List<Integer>> levelOrder(TreeNode root)
-        return serializeListOfListInt(solver.levelOrder(toTreeNode(input)));
+        return serializeList(solver.levelOrder(toTreeNode(input)), IntegerListSerializer.getInstance());
     }
 
-} 
+}

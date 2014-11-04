@@ -7,7 +7,8 @@ public class Q039_CombinationSumTest extends AbstractTest<Q039_CombinationSum> {
     @Override
     protected String solveProblem(String input, Q039_CombinationSum solver) {
         String[] inputs = tokenizeInput(input);
-        return serializeListOfListInt(solver.combinationSum(toIntArray(inputs[0]), toInt(inputs[1])));
+        return serializeList(solver.combinationSum(toIntArray(inputs[0]), toInt(inputs[1])),
+            IntegerListSerializer.getInstance());
     }
 
-} 
+}

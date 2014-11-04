@@ -7,7 +7,7 @@ public class Q118_PascalTriangleTest extends AbstractTest<Q118_PascalTriangle> {
 
     @Override
     protected String solveProblem(String input, Q118_PascalTriangle solver) {
-        return serializeListOfListInt(solver.generate(toInt(input)));
+        return serializeList(solver.generate(toInt(input)), IntegerListSerializer.getInstance());
     }
 
-} 
+}

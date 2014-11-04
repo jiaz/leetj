@@ -222,21 +222,21 @@ public class TestRunner {
         return sb.toString();
     }
 
-    public static String serializeListOfListInt(List<List<Integer>> list) {
-        StringBuilder sb = new StringBuilder();
-        sb.append('[');
-        boolean first = true;
-        for (List<Integer> x : list) {
-            if (!first) {
-                sb.append(",");
-            } else {
-                first = false;
-            }
-            sb.append(serializeList(x, IntegerSerializer.getInstance()));
-        }
-        sb.append(']');
-        return sb.toString();
-    }
+    // public static String serializeListOfListInt(List<List<Integer>> list) {
+    //     StringBuilder sb = new StringBuilder();
+    //     sb.append('[');
+    //     boolean first = true;
+    //     for (List<Integer> x : list) {
+    //         if (!first) {
+    //             sb.append(",");
+    //         } else {
+    //             first = false;
+    //         }
+    //         sb.append(serializeList(x, IntegerSerializer.getInstance()));
+    //     }
+    //     sb.append(']');
+    //     return sb.toString();
+    // }
 
     public static interface Serializer<T> {
         public String serialize(T obj);
@@ -275,6 +275,18 @@ public class TestRunner {
 
         public String serialize(List<String> obj) {
             return TestRunner.serializeList(obj, StringSerializer.getInstance());
+        }
+    }
+
+    public static class IntegerListSerializer implements Serializer<List<Integer>> {
+        private static final IntegerListSerializer _instance = new IntegerListSerializer();
+
+        public static Serializer<List<Integer>> getInstance() {
+            return _instance;
+        }
+
+        public String serialize(List<Integer> obj) {
+            return TestRunner.serializeList(obj, IntegerSerializer.getInstance());
         }
     }
 
