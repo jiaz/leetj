@@ -454,7 +454,7 @@ public class TestRunner {
                     System.out.println("[Passed] " + (endTimeMs - startTimeMs) + "ms");
                 }
             } else {
-                System.out.println("[Failed] " + pair.getLeft() + (endTimeMs - startTimeMs) + "ms");
+                System.out.println("[Failed] " + pair.getLeft() + " - " + (endTimeMs - startTimeMs) + "ms");
                 failureCount.incrementAndGet();
             }
         });
