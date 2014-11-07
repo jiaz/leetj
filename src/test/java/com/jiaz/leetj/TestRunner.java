@@ -74,7 +74,8 @@ public class TestRunner {
     }
 
     public static int[] toIntArray(String input) {
-        if (input.equals("[]")) return new int[0];
+        input = trimSides(input);
+        if (input.equals("")) return new int[0];
 
         return ArrayUtils.toPrimitive(Arrays.stream(trimSides(input).split(","))
                 .map(Integer::valueOf)
@@ -83,6 +84,7 @@ public class TestRunner {
 
     public static int[][] toArrayOfIntArray(String input) {
         if (input.equals("[]")) return new int[0][];
+        if (input.equals("[[]]")) return new int[1][0];
         input = trimSides(input);
         String[] arrays = input.split("\\],\\[");
         int[][] res = new int[arrays.length][];
