@@ -16,6 +16,8 @@ public class TestRunner {
 
     public static final boolean isParallel;
 
+    private static final double EPS = 0.00001;
+
     static {
         String isParallelSetting = System.getProperty("IsParallel");
         if (isParallelSetting.equals("true")) {
@@ -168,6 +170,16 @@ public class TestRunner {
 
     public static int toInt(String input) {
         return Integer.valueOf(input);
+    }
+
+    public static double toDouble(String input) {
+        return Double.valueOf(input);
+    }
+
+    public static boolean doubleEq(Double d1, Double d2) {
+        if (d1 == null && d2 == null) return true;
+        if (d1 == null || d2 == null) return false;
+        return Math.abs(d1 - d2) < EPS;
     }
 
     public static String toStr(String input) {
