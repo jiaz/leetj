@@ -222,6 +222,40 @@ public class TestRunner {
         return root;
     }
 
+    public static TreeLinkNode toTreeLinkNode(String input) {
+        if (input == null || input.equals("{}")) return null;
+
+        input = trimSides(input);
+        String[] tokens = input.split(",");
+        TreeLinkNode root = tokens[0].equals("#") ? null : new TreeLinkNode(Integer.valueOf(tokens[0]));
+        if (root == null) return root;
+
+        int pos = 1;
+        Queue<TreeLinkNode> q = new LinkedList<>();
+        q.add(root);
+        while (pos < tokens.length) {
+            TreeLinkNode n = q.remove();
+            String subs = tokens[pos];
+            if (subs.equals("#")) {
+                n.left = null;
+            } else {
+                n.left = new TreeLinkNode(Integer.valueOf(subs));
+                q.add(n.left);
+            }
+            pos++;
+            if (pos >= tokens.length) break;
+            subs = tokens[pos];
+            if (subs.equals("#")) {
+                n.right = null;
+            } else {
+                n.right = new TreeLinkNode(Integer.valueOf(subs));
+                q.add(n.right);
+            }
+            pos++;
+        }
+        return root;
+    }
+
     public static String serialize(ListNode list) {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
@@ -235,22 +269,6 @@ public class TestRunner {
         sb.append("}");
         return sb.toString();
     }
-
-    // public static String serializeListOfListInt(List<List<Integer>> list) {
-    //     StringBuilder sb = new StringBuilder();
-    //     sb.append('[');
-    //     boolean first = true;
-    //     for (List<Integer> x : list) {
-    //         if (!first) {
-    //             sb.append(",");
-    //         } else {
-    //             first = false;
-    //         }
-    //         sb.append(serializeList(x, IntegerSerializer.getInstance()));
-    //     }
-    //     sb.append(']');
-    //     return sb.toString();
-    // }
 
     public static interface Serializer<T> {
         public String serialize(T obj);
@@ -396,6 +414,27 @@ public class TestRunner {
             } else {
                 sb.append("#,");
             }
+        }
+        return sb.substring(0, sb.length() - 1) + "}";
+    }
+
+    public static String serialize(TreeLinkNode root) {
+        if (root == null) return "{}";
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        TreeLinkNode currentLevel = root;
+        TreeLinkNode nextLevelHead = null;
+        while(currentLevel != null) {
+            while(currentLevel != null) {
+                sb.append(currentLevel.val).append(",");
+                if (currentLevel.left != null && nextLevelHead == null) nextLevelHead = currentLevel.left;
+                if (currentLevel.right != null && nextLevelHead == null) nextLevelHead = currentLevel.right;
+                currentLevel = currentLevel.next;
+            }
+            sb.append("#,");
+            currentLevel = nextLevelHead;
+            nextLevelHead = null;
         }
         return sb.substring(0, sb.length() - 1) + "}";
     }
