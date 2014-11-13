@@ -286,6 +286,18 @@ public class TestRunner {
         }
     }
 
+    public static class TreeNodeSerializer implements Serializer<TreeNode> {
+        private static final TreeNodeSerializer _instance = new TreeNodeSerializer();
+
+        public static Serializer<TreeNode> getInstance() {
+            return _instance;
+        }
+
+        public String serialize(TreeNode obj) {
+            return TestRunner.serialize(obj);
+        }
+    }
+
     public static class StringArraySerializer implements Serializer<String[]> {
         private static final StringArraySerializer _instance = new StringArraySerializer();
 
