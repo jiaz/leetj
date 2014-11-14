@@ -20,31 +20,8 @@ import java.util.*;
 
 public class Q129_SumRoottoLeafNumbers {
 
-    private int sum;
-
-    private void recCalc(TreeNode n, int subsum) {
-        if (n == null) {
-            sum += subsum;
-            return;
-        }
-
-        int currentSum = n.val + subsum * 10;
-        if (n.left == null && n.right == null) {
-            sum += currentSum;
-            return;
-        }
-        if (n.left != null) {
-            recCalc(n.left, currentSum);
-        }
-        if (n.right != null) {
-            recCalc(n.right, currentSum);
-        }
-    }
-
     public int sumNumbers(TreeNode root) {
-        sum = 0;
-        recCalc(root, 0);
-        return sum;
+        throw new RuntimeException("not implemented");
     }
 
 }

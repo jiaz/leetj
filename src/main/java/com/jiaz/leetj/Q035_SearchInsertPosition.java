@@ -16,19 +16,7 @@ import java.util.*;
 public class Q035_SearchInsertPosition {
 
     public int searchInsert(int[] A, int target) {
-        int begin = 0;
-        int end = A.length;
-        while (begin < end) {
-            int mid = begin + (end - begin) / 2;
-            int x = A[mid];
-            if (x == target) return mid;
-            else if (x > target) {
-                end = mid;
-            } else {
-                begin = mid + 1;
-            }
-        }
-        return end;
+        throw new RuntimeException("not implemented");
     }
 
 }

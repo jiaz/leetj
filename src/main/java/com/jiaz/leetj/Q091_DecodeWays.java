@@ -18,28 +18,7 @@ import java.util.*;
 public class Q091_DecodeWays {
 
     public int numDecodings(String s) {
-        if (s.length() == 0) return 0;
-        if (s.charAt(0) == '0') return 0;
-
-        int[] sum = new int[s.length()];
-        sum[0] = 1;
-        for (int i = 1; i < s.length(); ++i) {
-            int subsum = 0;
-            int x = (int)(s.charAt(i) - '0');
-            if (x != 0) {
-                subsum += sum[i - 1];
-            }
-            int y = (int)(s.charAt(i - 1) - '0');
-            if (y != 0) {
-                int d = y * 10 + x;
-                if (d >= 1 && d <= 26) {
-                    subsum += (i >= 2 ? sum[i - 2] : 1);
-                }
-            }
-            if (subsum == 0) return 0;
-            sum[i] = subsum;
-        }
-        return sum[sum.length - 1];
+        throw new RuntimeException("not implemented");
     }
 
 }

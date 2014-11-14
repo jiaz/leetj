@@ -13,41 +13,7 @@ import java.util.*;
 public class Q033_SearchinRotatedSortedArray {
 
     public int search(int[] A, int target) {
-        int L = 0;
-        int R = A.length;
-        while (R - L > 0) {
-            int m = (L + R) / 2;
-            if (A[m] == target) return m;
-            else if (A[m] < target) {
-                if (A[L] > A[m]) {
-                    if (A[L] > target) {
-                        L = m + 1;
-                    } else if (A[L] < target) {
-                        L += 1;
-                        R = m;
-                    } else {
-                        return L;
-                    }
-                } else {
-                    L = m + 1;
-                }
-            } else {
-                if (A[L] > A[m]) {
-                    L += 1;
-                    R = m;
-                } else {
-                    if (A[L] > target) {
-                        L = m + 1;
-                    } else if (A[L] < target) {
-                        L += 1;
-                        R = m;
-                    } else {
-                        return L;
-                    }
-                }
-            }
-        }
-        return -1;
+        throw new RuntimeException("not implemented");
     }
 
 }

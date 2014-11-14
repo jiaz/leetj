@@ -11,28 +11,8 @@ import java.util.*;
 
 public class Q084_LargestRectangleinHistogram {
 
-    private int max(int a, int b) {
-        return a < b ? b : a;
-    }
-
     public int largestRectangleArea(int[] height) {
-        int L = 0;
-        Stack<Integer> stk = new Stack<>();
-        int i = 0;
-        while (i < height.length) {
-            if (stk.isEmpty() || height[i] >= height[stk.peek()]) {
-                stk.push(i);
-                i++;
-            } else {
-                int x = stk.pop();
-                L = max(L, (i - (stk.isEmpty() ? 0 : stk.peek() + 1)) * height[x]);
-            }
-        }
-        while (!stk.isEmpty()) {
-            int x = stk.pop();
-            L = max(L, (height.length - (stk.isEmpty() ? 0 : stk.peek() + 1)) * height[x]);
-        }
-        return L;
+        throw new RuntimeException("not implemented");
     }
 
 }

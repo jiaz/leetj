@@ -2,73 +2,38 @@ package com.jiaz.leetj;
 
 import java.util.*;
 
+// Given an array of words and a length L,
+// format the text such that each line has exactly L characters and is fully (left and right) justified.
+
+// You should pack your words in a greedy approach;
+// that is, pack as many words as you can in each line. Pad extra spaces ' ' when necessary
+// so that each line has exactly L characters.
+
+// Extra spaces between words should be distributed as evenly as possible.
+// If the number of spaces on a line do not divide evenly between words,
+// the empty slots on the left will be assigned more spaces than the slots on the right.
+
+// For the last line of text, it should be left justified and no extra space is inserted between words.
+
+// For example,
+// words: ["This", "is", "an", "example", "of", "text", "justification."]
+// L: 16.
+
+// Return the formatted lines as:
+// [
+//   "This    is    an",
+//   "example  of text",
+//   "justification.  "
+// ]
+// Note: Each word is guaranteed not to exceed L in length.
+// Corner Cases:
+//   A line other than the last line might contain only one word. What should you do in this case?
+//   In this case, that line should be left-justified.
+
 public class Q068_TextJustification {
 
-    private String packLine(List<String> words, int L, int len) {
-        int space = L - len;
-        int wc = words.size();
-        StringBuilder sb = new StringBuilder();
-        if (wc == 1) {
-            sb.append(words.get(0));
-            for (int i = 0; i < space; ++i) {
-                sb.append(" ");
-            }
-        } else {
-            int avgsp = space / (wc - 1);
-            int remaining = space % (wc - 1);
-            for (int i = 0; i < wc; ++i) {
-                sb.append(words.get(i));
-                if (i != wc - 1) {
-                    for (int j = 0; j < avgsp; ++j) {
-                        sb.append(" ");
-                    }
-                    if (i < remaining) {
-                        sb.append(" ");
-                    }
-                }
-            }
-        }
-        return sb.toString();
-    }
-
-    private String packLine(List<String> words, int L) {
-        StringBuilder sb = new StringBuilder();
-        boolean first = true;
-        for (String w : words) {
-            if (!first) {
-                sb.append(" ");
-            }
-            first = false;
-            sb.append(w);
-        }
-        int remaining = L - sb.length();
-        for (int i = 0; i < remaining; ++i) {
-            sb.append(" ");
-        }
-        return sb.toString();
-    }
-    
     public List<String> fullJustify(String[] words, int L) {
-        List<String> tmp = new ArrayList<>();
-        List<String> result = new ArrayList<>();
-        int pos = 0;
-        int len = 0;
-        while (pos < words.length) {
-            if (len + words[pos].length() + tmp.size() > L) {
-                // pack
-                result.add(packLine(tmp, L, len));
-                tmp.clear();
-                len = 0;
-            } else {
-                tmp.add(words[pos]);
-                len += words[pos].length();
-                pos++;
-            }
-        }
-        if (!tmp.isEmpty()) {
-            result.add(packLine(tmp, L));
-        }
-        return result;
+        throw new RuntimeException("not implemented");
     }
 
 }

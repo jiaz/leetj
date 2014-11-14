@@ -13,33 +13,7 @@ import java.util.*;
 public class Q128_LongestConsecutiveSequence {
 
     public int longestConsecutive(int[] num) {
-        HashMap<Integer, Integer> maps = new HashMap<>();
-        for (int i = 0; i < num.length; ++i) {
-            int n = num[i];
-            int c = 1;
-            if (maps.containsKey(n)) continue;
-
-            if (maps.containsKey(n - 1)) {
-                c += maps.get(n - 1);
-            }
-            if (maps.containsKey(n + 1)) {
-                c += maps.get(n + 1);
-            }
-            if (maps.containsKey(n - 1)) {
-                int k = n - maps.get(n - 1);
-                maps.put(k, c);
-            }
-            if (maps.containsKey(n + 1)) {
-                int k = n + maps.get(n + 1);
-                maps.put(k, c);
-            }
-            maps.put(n, c);
-        }
-        int max = 0;
-        for (Integer v : maps.values()) {
-            max = Math.max(max, v);
-        }
-        return max;
+        throw new RuntimeException("not implemented");
     }
 
 }

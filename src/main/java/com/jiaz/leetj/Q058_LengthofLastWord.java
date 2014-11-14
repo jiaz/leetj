@@ -17,19 +17,7 @@ import java.util.*;
 public class Q058_LengthofLastWord {
 
     public int lengthOfLastWord(String s) {
-        int end = s.length() - 1;
-        while (end >= 0) {
-            if (s.charAt(end) == ' ') end--;
-            else break;
-        }
-        if (end < 0) return 0;
-
-        int len = 0;
-        while (end >= 0 && s.charAt(end) != ' ') {
-            len++;
-            end--;
-        }
-        return len;
+        throw new RuntimeException("not implemented");
     }
 
 }

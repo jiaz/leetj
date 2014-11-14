@@ -12,30 +12,7 @@ import java.util.*;
 public class Q088_MergeSortedArray {
 
     public int[] merge(int[] A, int m, int[] B, int n) {
-        int idxA = m - 1;
-        int idxB = n - 1;
-        int idxNew = m + n - 1;
-
-        while (idxA >= 0 || idxB >= 0) {
-            if (idxA >= 0 && idxB >= 0) {
-                if (A[idxA] > B[idxB]) {
-                    A[idxNew] = A[idxA];
-                    idxA--;
-                } else {
-                    A[idxNew] = B[idxB];
-                    idxB--;
-                }
-            } else if (idxA >= 0) {
-                A[idxNew] = A[idxA];
-                idxA--;
-            } else {
-                A[idxNew] = B[idxB];
-                idxB--;
-            }
-            idxNew--;
-        }
-
-        return A;
+        throw new RuntimeException("not implemented");
     }
 
 }

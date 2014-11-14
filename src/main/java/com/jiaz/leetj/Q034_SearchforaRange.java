@@ -12,77 +12,8 @@ package com.jiaz.leetj;
 
 public class Q034_SearchforaRange {
 
-    private int searchForStart(int[] num, int target) {
-        if (num.length < 1) return -1;
-        int begin = 0;
-        int end = num.length - 1;
-        while (end >= begin) {
-            if (end == begin) {
-                if (num[begin] == target) return begin;
-                else return -1;
-            } else {
-                int mid = begin + (end - begin + 1) / 2;
-                if (num[mid] > target) {
-                    end = mid - 1;
-                } else if (num[mid] < target) {
-                    begin = mid + 1;
-                } else {
-                    // found target
-                    if (mid > begin) {
-                        // check prev num is also target
-                        if (num[mid - 1] == target) {
-                            end = mid - 1;
-                        } else {
-                            return mid;
-                        }
-                    } else {
-                        return mid;
-                    }
-                }
-            }
-        }
-        return -1;
-    }
-    
-    private int searchForEnd(int[] num, int target) {
-        if (num.length < 1) return -1;
-        int begin = 0;
-        int end = num.length - 1;
-        while (end >= begin) {
-            if (end == begin) {
-                if (num[begin] == target) return begin;
-                else return -1;
-            } else {
-                int mid = begin + (end - begin + 1) / 2;
-                if (num[mid] > target) {
-                    end = mid - 1;
-                } else if (num[mid] < target) {
-                    begin = mid + 1;
-                } else {
-                    // found target
-                    if (mid < end) {
-                        // check next num is also target
-                        if (num[mid + 1] == target) {
-                            begin = mid + 1;
-                        } else {
-                            return mid;
-                        }
-                    } else {
-                        return mid;
-                    }
-                }
-            }
-        }
-        return -1;
-    }
-
     public int[] searchRange(int[] A, int target) {
-        int start = searchForStart(A, target);
-        if (start == -1) {
-            return new int[] {-1, -1};
-        }
-        int end = searchForEnd(A, target);
-        return new int[] {start, end};
+        throw new RuntimeException("not implemented");
     }
 
 }

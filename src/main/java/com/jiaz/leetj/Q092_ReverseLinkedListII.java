@@ -15,41 +15,8 @@ import java.util.*;
 
 public class Q092_ReverseLinkedListII {
 
-    private ListNode move(ListNode n, int step) {
-        for (int i = 1; i < step; ++i) {
-            n = n.next;
-        }
-        return n;
-    }
-
-    private void reverse(ListNode head, ListNode end) {
-        ListNode guard = end.next;
-
-        ListNode current = head;
-        ListNode prev = guard;
-        while (current != guard) {
-            ListNode next = current.next;
-            current.next = prev;
-            prev = current;
-            current = next;
-        }
-    }
-
     public ListNode reverseBetween(ListNode head, int m, int n) {
-        if (m == n) return head;
-
-        if (m == 1) {
-            // head is changed
-            ListNode nNode = move(head, n);
-            reverse(head, nNode);
-            return nNode;
-        } else {
-            ListNode mNodePrev = move(head, m - 1);
-            ListNode nNode = move(head, n);
-            reverse(mNodePrev.next, nNode);
-            mNodePrev.next = nNode;
-            return head;
-        }
+        throw new RuntimeException("not implemented");
     }
 
 }

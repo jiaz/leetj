@@ -12,29 +12,7 @@ import java.util.*;
 public class Q082_RemoveDuplicatesfromSortedListII {
 
     public ListNode deleteDuplicates(ListNode head) {
-        ListNode newHead = null;
-        ListNode newTail = null;
-        ListNode currentStart = head;
-        while (currentStart != null) {
-            ListNode currentEnd = currentStart;
-            int count = 0;
-            while (currentEnd != null && currentEnd.val == currentStart.val) {
-                currentEnd = currentEnd.next;
-                count++;
-            }
-            if (count == 1) {
-                if (newHead == null) {
-                    newHead = currentStart;
-                    newTail = newHead;
-                } else {
-                    newTail.next = currentStart;
-                    newTail = newTail.next;
-                }
-                newTail.next = null;
-            }
-            currentStart = currentEnd;
-        }
-        return newHead;
+        throw new RuntimeException("not implemented");
     }
 
 }

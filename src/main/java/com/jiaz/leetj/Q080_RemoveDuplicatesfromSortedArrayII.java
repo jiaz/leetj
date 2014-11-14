@@ -13,27 +13,7 @@ import java.util.*;
 public class Q080_RemoveDuplicatesfromSortedArrayII {
 
     public int removeDuplicates(int[] A) {
-        if (A.length <= 2) return A.length;
-
-        int pos = 1;
-        int head = 1;
-        int seeCount = 1;
-        while (head < A.length) {
-            if (A[head] == A[pos - 1]) {
-                if (seeCount < 2) {
-                    seeCount++;
-                    A[pos] = A[head];
-                    pos++;
-                }
-            } else {
-                A[pos] = A[head];
-                seeCount = 1;
-                pos++;
-            }
-            head++;
-        }
-
-        return pos;
+        throw new RuntimeException("not implemented");
     }
 
 }

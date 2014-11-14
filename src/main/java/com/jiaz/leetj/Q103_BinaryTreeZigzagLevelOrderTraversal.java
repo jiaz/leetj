@@ -22,33 +22,7 @@ import java.util.*;
 public class Q103_BinaryTreeZigzagLevelOrderTraversal {
 
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        Stack<TreeNode> stk = new Stack<>();
-        Stack<TreeNode> nextLevel = new Stack<>();
-        List<List<Integer>> result = new ArrayList<>();
-        if (root == null) return result;
-        stk.push(root);
-        boolean leftToRight = true;
-        while (!stk.isEmpty()) {
-            // add current level
-            List<Integer> row = new ArrayList<>();
-            while (!stk.isEmpty()) {
-                TreeNode n = stk.pop();
-                row.add(n.val);
-
-                if (leftToRight) {
-                    if (n.left != null) nextLevel.add(n.left);
-                    if (n.right != null) nextLevel.add(n.right);
-                } else {
-                    if (n.right != null) nextLevel.add(n.right);
-                    if (n.left != null) nextLevel.add(n.left);
-                }
-            }
-            result.add(row);
-            leftToRight = !leftToRight;
-            stk = nextLevel;
-            nextLevel = new Stack<>();
-        }
-        return result;
+        throw new RuntimeException("not implemented");
     }
 
 }

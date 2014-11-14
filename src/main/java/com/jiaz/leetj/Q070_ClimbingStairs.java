@@ -10,16 +10,7 @@ import java.util.*;
 public class Q070_ClimbingStairs {
 
     public int climbStairs(int n) {
-        if (n == 1) return 1;
-        if (n == 2) return 2;
-        int p = 1;
-        int pp = 2;
-        for (int i = 3; i <= n; ++i) {
-            int w = p + pp;
-            p = pp;
-            pp = w;
-        }
-        return pp;
+        throw new RuntimeException("not implemented");
     }
 
 }

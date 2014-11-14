@@ -19,20 +19,7 @@ import java.util.*;
 public class Q094_BinaryTreeInorderTraversal {
 
     public List<Integer> inorderTraversal(TreeNode root) {
-        List<Integer> result = new ArrayList<>();
-        TreeNode current = root;
-        Stack<TreeNode> stk = new Stack<>();
-        while (current != null || !stk.isEmpty()) {
-            if (current != null) {
-                stk.push(current);
-                current = current.left;
-            } else {
-                current = stk.pop();
-                result.add(current.val);
-                current = current.right;
-            }
-        }
-        return result;
+        throw new RuntimeException("not implemented");
     }
 
 }

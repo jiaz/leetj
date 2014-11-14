@@ -20,29 +20,9 @@ import java.util.*;
 // ]
 
 public class Q113_PathSumII {
-    private void recPathSum(TreeNode n, int sum, Stack<Integer> stk, List<List<Integer>> res) {
-        if (n == null) return;
-
-        if (n.left == null && n.right == null) {
-            if (sum == n.val) {
-                List<Integer> list = new ArrayList<>(stk);
-                list.add(n.val);
-                res.add(list);
-            }
-            return;
-        }
-
-        stk.push(n.val);
-        recPathSum(n.left, sum - n.val, stk, res);
-        recPathSum(n.right, sum - n.val, stk, res);
-        stk.pop();
-    }
 
     public List<List<Integer>> pathSum(TreeNode root, int sum) {
-        List<List<Integer>> result = new ArrayList<>();
-        Stack<Integer> stk = new Stack<>();
-        recPathSum(root, sum, stk, result);
-        return result;
+        throw new RuntimeException("not implemented");
     }
 
 }

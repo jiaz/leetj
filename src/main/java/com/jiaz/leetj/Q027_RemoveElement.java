@@ -9,16 +9,7 @@ import java.util.*;
 public class Q027_RemoveElement {
 
     public int removeElement(int[] A, int elem) {
-        int pos = -1;
-        int head = 0;
-        while (head != A.length) {
-            if (A[head] != elem) {
-                pos++;
-                A[pos] = A[head];
-            }
-            head++;
-        }
-        return pos + 1;
+        throw new RuntimeException("not implemented");
     }
 
 }

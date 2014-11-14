@@ -14,35 +14,8 @@ import java.util.*;
 
 public class Q075_SortColors {
 
-    private void swap(int[] A, int a, int b) {
-        if (a == b) return;
-        int t = A[a];
-        A[a] = A[b];
-        A[b] = t;
-    }
-
     public int[] sortColors(int[] A) {
-        int head = 0;
-        int stackbase = A.length;
-        int stacktop = A.length;
-        while (head < stacktop) {
-            if (A[head] == 0) {
-                head++;
-            } else {
-                if (A[head] == 1) {
-                    stacktop--;
-                    // swap head and stacktop
-                    swap(A, head, stacktop);
-                } else {
-                    stacktop--;
-                    stackbase--;
-                    // swap head and stacktop
-                    swap(A, head, stacktop);
-                    swap(A, stacktop, stackbase);
-                }
-            }
-        }
-        return A;
+        throw new RuntimeException("not implemented");
     }
 
 }

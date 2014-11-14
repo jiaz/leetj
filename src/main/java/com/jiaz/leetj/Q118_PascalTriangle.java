@@ -16,24 +16,9 @@ import java.util.*;
 // ]
 
 public class Q118_PascalTriangle {
-    
+
     public List<List<Integer>> generate(int numRows) {
-        List<List<Integer>> result = new ArrayList<>();
-        if (numRows < 1) return result;
-        for (int i = 0; i < numRows; ++i) {
-            List<Integer> line = new ArrayList<>();
-            List<Integer> prevLine = null;
-            if (i > 0) prevLine = result.get(i - 1);
-            for (int j = 0; j <= i; ++j) {
-                if (j == 0 || j == i) {
-                    line.add(1);
-                } else {
-                    line.add(prevLine.get(j - 1) + prevLine.get(j));
-                }
-            }
-            result.add(line);
-        }
-        return result;
+        throw new RuntimeException("not implemented");
     }
 
 }

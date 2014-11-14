@@ -2,39 +2,33 @@ package com.jiaz.leetj;
 
 import java.util.*;
 
+// Follow up for problem "Populating Next Right Pointers in Each Node".
+
+// What if the given tree could be any binary tree? Would your previous solution still work?
+
+// Note:
+
+// You may only use constant extra space.
+// For example,
+// Given the following binary tree,
+
+//          1
+//        /  \
+//       2    3
+//      / \    \
+//     4   5    7
+// After calling your function, the tree should look like:
+
+//          1 -> NULL
+//        /  \
+//       2 -> 3 -> NULL
+//      / \    \
+//     4-> 5 -> 7 -> NULL
+
 public class Q117_PopulatingNextRightPointersinEachNodeII {
 
     public TreeLinkNode connect(TreeLinkNode root) {
-        TreeLinkNode prevLevel = root;
-        TreeLinkNode currentLevelHead = null;
-        TreeLinkNode currentLevelTail = null;
-        while (prevLevel != null) {
-            if (prevLevel.left != null) {
-                if (currentLevelHead == null) {
-                    currentLevelHead = prevLevel.left;
-                    currentLevelTail = prevLevel.left;
-                } else {
-                    currentLevelTail.next = prevLevel.left;
-                    currentLevelTail = currentLevelTail.next;
-                }
-            }
-            if (prevLevel.right != null) {
-                if (currentLevelHead == null) {
-                    currentLevelHead = prevLevel.right;
-                    currentLevelTail = prevLevel.right;
-                } else {
-                    currentLevelTail.next = prevLevel.right;
-                    currentLevelTail = currentLevelTail.next;
-                }
-            }
-            prevLevel = prevLevel.next;
-            if (prevLevel == null) {
-                prevLevel = currentLevelHead;
-                currentLevelHead = null;
-                currentLevelTail = null;
-            }
-        }
-        return root;
+        throw new RuntimeException("not implemented");
     }
 
 }

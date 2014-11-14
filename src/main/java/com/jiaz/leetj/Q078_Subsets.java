@@ -23,24 +23,8 @@ import java.util.*;
 
 public class Q078_Subsets {
 
-    private void recSubSet(int[] S, int pos, Stack<Integer> stk, List<List<Integer>> res) {
-        if (pos == S.length) {
-            List<Integer> oneRes = new ArrayList<>(stk);
-            res.add(oneRes);
-        } else {
-            recSubSet(S, pos+1, stk, res);
-
-            stk.push(S[pos]);
-            recSubSet(S, pos+1, stk, res);
-            stk.pop();
-        }
-    }
-
     public List<List<Integer>> subsets(int[] S) {
-        Arrays.sort(S);
-        List<List<Integer>> result = new ArrayList<>();
-        recSubSet(S, 0, new Stack<Integer>(), result);
-        return result;
+        throw new RuntimeException("not implemented");
     }
 
 }

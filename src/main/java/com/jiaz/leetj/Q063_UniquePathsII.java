@@ -23,36 +23,7 @@ import java.util.*;
 public class Q063_UniquePathsII {
 
     public int uniquePathsWithObstacles(int[][] obstacleGrid) {
-        int m = obstacleGrid.length;
-        int n = obstacleGrid[0].length;
-
-        int[][] map = new int[m][n];
-
-        boolean hasObstacle = false;
-        for (int i = 0; i < m; ++i) {
-            if (obstacleGrid[i][0] == 1) {
-                hasObstacle = true;
-            }
-            map[i][0] = hasObstacle ? 0 : 1;
-        }
-        hasObstacle = false;
-        for (int j = 0; j < n; ++j) {
-            if (obstacleGrid[0][j] == 1) {
-                hasObstacle = true;
-            }
-            map[0][j] = hasObstacle ? 0 : 1;
-        }
-        for (int i = 1; i < m; ++i) {
-            for (int j = 1; j < n; ++j) {
-                int sum = 0;
-                if (obstacleGrid[i][j] == 0) {
-                    sum += map[i - 1][j];
-                    sum += map[i][j - 1];
-                }
-                map[i][j] = sum;
-            }
-        }
-        return map[m - 1][n - 1];
+        throw new RuntimeException("not implemented");
     }
 
 }

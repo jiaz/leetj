@@ -18,22 +18,7 @@ import java.util.*;
 public class Q045_JumpGameII {
 
     public int jump(int[] A) {
-        if (A.length <= 1) return 0;
-        
-        int count = 0;
-        int current = 0;
-        int furthest = 0;
-        while (current <= furthest) {
-            count++;
-            int next = furthest;
-            for (int i = current; i <= furthest; ++i) {
-                next = Math.max(next, i + A[i]);
-                if (next >= A.length - 1) return count;
-            }
-            current = furthest + 1;
-            furthest = next;
-        }
-        return -1;
+        throw new RuntimeException("not implemented");
     }
 
 }

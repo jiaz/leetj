@@ -24,24 +24,7 @@ import java.util.*;
 public class Q107_BinaryTreeLevelOrderTraversalII {
 
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
-        LinkedList<List<Integer>> result = new LinkedList<>();
-
-        if (root == null) return result;
-
-        Queue<TreeNode> q = new LinkedList<>();
-        q.add(root);
-        while (!q.isEmpty()) {
-            int size = q.size();
-            List<Integer> level = new ArrayList<>();
-            for (int i = 0; i < size; ++i) {
-                TreeNode n = q.remove();
-                level.add(n.val);
-                if (n.left != null) q.add(n.left);
-                if (n.right != null) q.add(n.right);
-            }
-            result.addFirst(level);
-        }
-        return result;
+        throw new RuntimeException("not implemented");
     }
 
 }

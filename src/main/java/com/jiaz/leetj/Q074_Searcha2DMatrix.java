@@ -21,32 +21,8 @@ import java.util.function.*;
 
 public class Q074_Searcha2DMatrix {
 
-    public int binarySearchLessThanOrEqualTo(int target,
-        Function<Integer, Integer> getValue, int length) {
-        int begin = 0; int end = length;
-        while (end - begin > 1) {
-            int mid = (begin + end) / 2;
-            int x = getValue.apply(mid);
-            if (x == target) return mid;
-            else if (x < target) {
-                begin = mid;
-            } else {
-                end = mid;
-            }
-        }
-        if (getValue.apply(begin) <= target) {
-            return begin;
-        } else {
-            return -1;
-        }
-    }
-    
     public boolean searchMatrix(int[][] matrix, int target) {
-        int ridx = binarySearchLessThanOrEqualTo(target, x -> matrix[x][0], matrix.length);
-        if (ridx == -1) return false;
-
-        int p = binarySearchLessThanOrEqualTo(target, x -> matrix[ridx][x], matrix[ridx].length);
-        return matrix[ridx][p] == target;
+        throw new RuntimeException("not implemented");
     }
 
 }

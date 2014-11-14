@@ -22,35 +22,8 @@ import java.util.*;
 
 public class Q090_SubsetsII {
 
-    private void recGenSubsets(int[] num, int pos, Stack<Integer> stk, List<List<Integer>> res) {
-        if (pos == num.length) {
-            List<Integer> list = new ArrayList<>(stk);
-            res.add(list);
-        } else {
-            int count = 1;
-            int peek = pos + 1;
-            while (peek < num.length && num[peek] == num[pos]) {
-                peek++;
-                count++;
-            }
-            for (int i = 0; i <= count; ++i) {
-                for (int j = 0; j < i; ++j) {
-                    stk.push(num[pos]);
-                }
-                recGenSubsets(num, peek, stk, res);
-                for (int j = 0; j < i; ++j) {
-                    stk.pop();
-                }
-            }
-        }
-    }
-
     public List<List<Integer>> subsetsWithDup(int[] num) {
-        List<List<Integer>> result = new ArrayList<>();
-        Arrays.sort(num);
-        recGenSubsets(num, 0, new Stack<Integer>(), result);
-
-        return result;
+        throw new RuntimeException("not implemented");
     }
 
 }

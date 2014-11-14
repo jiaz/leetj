@@ -9,21 +9,7 @@ import java.util.*;
 public class Q066_PlusOne {
 
     public int[] plusOne(int[] digits) {
-        int carry = 1;
-        for (int i = digits.length - 1; i >= 0; --i) {
-            digits[i] += carry;
-            carry = digits[i] / 10;
-            digits[i] = digits[i] % 10;
-            if (carry == 0) break;
-        }
-
-        if (carry == 1) {
-            int[] tmp = new int[digits.length + 1];
-            tmp[0] = 1;
-            System.arraycopy(digits, 0, tmp, 1, digits.length);
-            digits = tmp;
-        }
-        return digits;
+        throw new RuntimeException("not implemented");
     }
 
 }

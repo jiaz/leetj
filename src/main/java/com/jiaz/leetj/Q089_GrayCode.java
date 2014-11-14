@@ -26,17 +26,7 @@ import java.util.*;
 public class Q089_GrayCode {
 
     public List<Integer> grayCode(int n) {
-        List<Integer> result = new ArrayList<>();
-        result.add(0);
-        for (int i = 0; i < n; ++i) {
-            int k = result.size();
-            int d = 1 << i;
-            for (int j = k - 1; j >= 0; --j) {
-                int next = (d | result.get(j));
-                result.add(next);
-            }
-        }
-        return result;
+        throw new RuntimeException("not implemented");
     }
 
 }

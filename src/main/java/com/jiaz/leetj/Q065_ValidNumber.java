@@ -16,61 +16,7 @@ import java.util.*;
 public class Q065_ValidNumber {
 
     public boolean isNumber(String s) {
-        int start = 0;
-        int end = s.length() - 1;
-        while (start < s.length() && s.charAt(start) == ' ') start++;
-        while (end >= start && s.charAt(end) == ' ') end--;
-        if (start > end) return false;
-
-        int i = start;
-
-        // optional +/-
-        if (s.charAt(i) == '+' || s.charAt(i) == '-') i++;
-
-        // if nothing else, return false
-        if (i > end) return false;
-
-        // scan digits, until meet E or EOS
-        boolean hasAtLeastOneDigit = false;
-        boolean hasOneDot = false;
-        boolean hasExp = false;
-        while (i <= end) {
-            char c = s.charAt(i);
-            i++;
-            if (c >= '0' && c <= '9') {
-                hasAtLeastOneDigit = true;
-            }
-            else if (c == '.') {
-                if (hasOneDot) return false;
-                hasOneDot = true;
-            }
-            else if (c == 'E' || c == 'e') {
-                hasExp = true;
-                break;
-            }
-            else return false;
-        }
-
-        // we require at least one digit to continue
-        if (!hasAtLeastOneDigit) return false;
-
-        // if nothing else, return true if there is no E
-        if (i > end) return !hasExp;
-
-        // optional +/-
-        if (s.charAt(i) == '+' || s.charAt(i) == '-') i++;
-
-        hasAtLeastOneDigit = false;
-        while (i <= end) {
-            char c = s.charAt(i);
-            i++;
-            if (c >= '0' && c <= '9') {
-                hasAtLeastOneDigit = true;
-            }
-            else return false;
-        }
-        // at least one digit
-        return hasAtLeastOneDigit;
+        throw new RuntimeException("not implemented");
     }
 
 }

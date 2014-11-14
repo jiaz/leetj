@@ -19,34 +19,7 @@ import java.util.*;
 public class Q018_4Sum {
 
     public List<List<Integer>> fourSum(int[] num, int target) {
-        Arrays.sort(num);
-
-        List<List<Integer>> result = new ArrayList<>();
-
-        int apos = 0;
-        while (apos <= num.length - 4) {
-            int bpos = apos + 1;
-            while (bpos <= num.length - 3) {
-                int cpos = bpos + 1;
-                int dpos = num.length - 1;
-                while (cpos < dpos) {
-                    int v = num[apos] + num[bpos] + num[cpos] + num[dpos];
-                    if (v == target) {
-                        result.add(Arrays.asList(num[apos], num[bpos], num[cpos], num[dpos]));
-                        do { cpos++; } while (dpos > cpos && num[cpos] == num[cpos-1]);
-                        do { dpos--; } while (dpos > cpos && num[dpos] == num[dpos+1]);
-                    } else if (v > target) {
-                        do { dpos--; } while (dpos > cpos && num[dpos] == num[dpos+1]);
-                    } else if (v < target) {
-                        do { cpos++; } while (dpos > cpos && num[cpos] == num[cpos-1]);
-                    }
-                }
-                do { bpos++; } while (bpos <= num.length - 3 && num[bpos] == num[bpos-1]);
-            }
-            do { apos++; } while (apos <= num.length - 4 && num[apos] == num[apos-1]);
-        }
-
-        return result;
+        throw new RuntimeException("not implemented");
     }
 
 }

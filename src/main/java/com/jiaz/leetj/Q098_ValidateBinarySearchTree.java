@@ -14,27 +14,7 @@ import java.util.*;
 public class Q098_ValidateBinarySearchTree {
 
     public boolean isValidBST(TreeNode root) {
-        if (root == null) return true;
-        // in order traverse and check each node is greater than prev node
-        Stack<TreeNode> stk = new Stack<>();
-        TreeNode current = root;
-        TreeNode prevNode = null;
-        while (current != null || !stk.isEmpty()) {
-            if (current == null) {
-                TreeNode n = stk.pop();
-                if (prevNode != null) {
-                    if (prevNode.val >= n.val) return false;
-                }
-                prevNode = n;
-                if (n.right != null) {
-                    current = n.right;
-                }
-            } else {
-                stk.push(current);
-                current = current.left;
-            }
-        }
-        return true;
+        throw new RuntimeException("not implemented");
     }
 
 }

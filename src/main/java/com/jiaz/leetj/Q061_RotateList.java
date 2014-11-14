@@ -11,38 +11,7 @@ import java.util.*;
 public class Q061_RotateList {
 
     public ListNode rotateRight(ListNode head, int k) {
-        if (head == null) return null;
-
-        int count = 0;
-        ListNode tmp = head;
-        while (tmp != null) {
-            count++;
-            tmp = tmp.next;
-        }
-        k %= count;
-
-        // simple shortcut
-        if (k == 0 || count == 1) return head;
-
-        int leftCount = count - k;
-        tmp = head;
-        while (leftCount > 1) {
-            tmp = tmp.next;
-            leftCount--;
-        }
-
-        ListNode newHead = tmp.next;
-        ListNode newTail = tmp;
-
-        ListNode mid = newHead;
-        while (mid.next != null) {
-            mid = mid.next;
-        }
-
-        mid.next = head;
-        newTail.next = null;
-
-        return newHead;
+        throw new RuntimeException("not implemented");
     }
 
 }

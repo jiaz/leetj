@@ -11,28 +11,8 @@ import java.util.*;
 
 public class Q083_RemoveDuplicatesfromSortedList {
 
-    private void deleteNode(ListNode parent, ListNode target) {
-        if (parent == null || target == null) return;
-
-        parent.next = target.next;
-        target.next = null;
-    }
-
     public ListNode deleteDuplicates(ListNode head) {
-        ListNode current = head;
-        while (current != null) {
-            ListNode next = current.next;
-            if (next != null) {
-                if (next.val == current.val) {
-                    deleteNode(current, next);
-                } else {
-                    current = next;
-                }
-            } else {
-                break;
-            }
-        }
-        return head;
+        throw new RuntimeException("not implemented");
     }
 
 }

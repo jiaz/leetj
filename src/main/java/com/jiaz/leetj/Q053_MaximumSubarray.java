@@ -10,37 +10,8 @@ import java.util.*;
 
 public class Q053_MaximumSubarray {
 
-    private int max(int a, int b) {
-        return a < b ? b : a;
-    }
-    private int min(int a, int b) {
-        return a < b ? a : b;
-    }
-
     public int maxSubArray(int[] A) {
-        return maxSubArrayPrefix(A);
-    }
-
-    private int maxSubArray1(int[] A) {
-        int r = A[0];
-        int imax = r;
-        for (int i = 1; i < A.length; ++i) {
-            imax = max(A[i], imax + A[i]);
-            r = max(r, imax);
-        }
-        return r;
-    }
-
-    private int maxSubArrayPrefix(int[] A) {
-        int p = A[0];
-        int minp = min(0, p);
-        int r = p;
-        for (int i = 1; i < A.length; ++i) {
-            p += A[i];
-            if (p - minp > r) r = p - minp;
-            if (p < minp) minp = p;
-        }
-        return r;
+        throw new RuntimeException("not implemented");
     }
 
 }

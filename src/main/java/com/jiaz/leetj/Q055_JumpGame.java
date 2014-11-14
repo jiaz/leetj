@@ -18,23 +18,7 @@ import java.util.*;
 public class Q055_JumpGame {
 
     public boolean canJump(int[] A) {
-        boolean[] map = new boolean[A.length];
-        for (int i = 0; i < map.length; ++i) {
-            map[i] = false;
-        }
-        map[0] = true;
-        int i = 0;
-        int furthest = 0;
-        while (i <= furthest) {
-            int nextfurthest = furthest;
-            for (int j = i; j <= furthest; ++j) {
-                nextfurthest = Math.max(nextfurthest, A[j] + j);
-                if (nextfurthest >= A.length - 1) return true;
-            }
-            i = furthest + 1;
-            furthest = nextfurthest;
-        }
-        return false;
+        throw new RuntimeException("not implemented");
     }
 
 }

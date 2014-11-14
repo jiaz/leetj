@@ -46,38 +46,8 @@ import java.util.*;
 
 public class Q087_ScrambleString {
 
-    private boolean recScramble(String s1, String s2) {
-        if (s1.equals(s2)) return true;
-        char[] c1 = s1.toCharArray();
-        char[] c2 = s2.toCharArray();
-        Arrays.sort(c1);
-        Arrays.sort(c2);
-        if (!Arrays.equals(c1, c2)) return false;
-
-        int l = s1.length();
-        for (int i = 1; i < l; ++i) {
-            String left1 = s1.substring(0, i);
-            String left2 = s2.substring(0, i);
-            String right1 = s1.substring(i, l);
-            String right2 = s2.substring(i, l);
-            if (recScramble(left1, left2) && recScramble(right1, right2)) {
-                return true;
-            }
-
-            left1 = s1.substring(0, i);
-            right1 = s2.substring(l - i, l);
-            left2 = s1.substring(i, l);
-            right2 = s2.substring(0, l - i);
-            if (recScramble(left1, right1) && recScramble(left2, right2)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public boolean isScramble(String s1, String s2) {
-        if (s1 == null && s2 == null) return true;
-        return recScramble(s1, s2);
+        throw new RuntimeException("not implemented");
     }
 
 }
