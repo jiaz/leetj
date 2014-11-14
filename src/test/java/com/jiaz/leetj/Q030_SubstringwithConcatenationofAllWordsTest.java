@@ -8,9 +8,7 @@ public class Q030_SubstringwithConcatenationofAllWordsTest extends AbstractTest<
     @Override
     protected String solveProblem(String input, Q030_SubstringwithConcatenationofAllWords solver) {
         String[] inputs = tokenizeInput(input);
-        String s = serializeList(solver.findSubstring(toStr(inputs[0]), toStrArray(inputs[1])), IntegerSerializer.getInstance());
-        System.out.println(s);
-        return s;
+        return serializeList(solver.findSubstring(toStr(inputs[0]), toStrArray(inputs[1])), IntegerSerializer.getInstance());
     }
 
 }

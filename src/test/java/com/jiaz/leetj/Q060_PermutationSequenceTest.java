@@ -8,9 +8,7 @@ public class Q060_PermutationSequenceTest extends AbstractTest<Q060_PermutationS
     @Override
     protected String solveProblem(String input, Q060_PermutationSequence solver) {
         String[] inputs = tokenizeInput(input);
-        String res = serialize(solver.getPermutation(toInt(inputs[0]), toInt(inputs[1])));
-        System.out.println(res);
-        return res;
+        return serialize(solver.getPermutation(toInt(inputs[0]), toInt(inputs[1])));
     }
 
 }
